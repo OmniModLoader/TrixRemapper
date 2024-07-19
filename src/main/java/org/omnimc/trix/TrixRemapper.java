@@ -1,6 +1,6 @@
 package org.omnimc.trix;
 
-import org.omnimc.trix.managers.MappingManager;
+import org.omnimc.trix.mapping.MappingManager;
 import org.objectweb.asm.commons.Remapper;
 
 /**

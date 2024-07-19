@@ -1,7 +1,7 @@
-package org.omnimc.trix.managers;
+package org.omnimc.trix.mapping;
 
-import org.omnimc.trix.file.MappingEntry;
-import org.omnimc.trix.parser.IParser;
+import org.omnimc.trix.mapping.entry.MappingEntry;
+import org.omnimc.trix.mapping.parser.IParser;
 import org.objectweb.asm.commons.Remapper;
 
 import java.io.File;

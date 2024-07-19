@@ -1,4 +1,4 @@
-package org.omnimc.trix.file;
+package org.omnimc.trix.hierarchy.info;
 
 import java.util.ArrayList;
 import java.util.HashMap;

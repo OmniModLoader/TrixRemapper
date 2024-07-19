@@ -1,25 +1,19 @@
-package org.omnimc.trix.visitors.remapping;
+package org.omnimc.trix.visitors.mapping;
 
 import org.objectweb.asm.*;
-import org.objectweb.asm.commons.Remapper;
-import org.omnimc.trix.managers.HierarchyManager;
-import org.omnimc.trix.managers.MappingManager;
+import org.omnimc.trix.contexts.interfaces.IMappingContext;
+import org.omnimc.trix.contexts.interfaces.IMethodContext;
 
 /**
  * @author <b><a href=https://github.com/CadenCCC>Caden</a></b>
  * @since 1.0.0
  */
-public class RemappingVisitor extends ClassVisitor {
-    private final HierarchyManager hierarchyManager;
-    private final MappingManager mappingManager;
-    private final Remapper remapper;
-    private String currentClass;
+public class MappingClassVisitor extends ClassVisitor {
+    private final IMappingContext mappingContext;
 
-    public RemappingVisitor(ClassVisitor classVisitor, MappingManager mappingManager, HierarchyManager hierarchyManager) {
+    public MappingClassVisitor(ClassVisitor classVisitor, IMappingContext mappingContext) {
         super(Opcodes.ASM9, classVisitor);
-        this.hierarchyManager = hierarchyManager;
-        this.mappingManager = mappingManager;
-        this.remapper = mappingManager.getRemapper();
+        this.mappingContext = mappingContext;
     }
 
     /* Class changes */
@@ -42,8 +36,7 @@ public class RemappingVisitor extends ClassVisitor {
      */
     @Override
     public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
-        this.currentClass = name;
-        super.visit(version, access, remapper.mapType(name), remapper.mapSignature(signature, false), remapper.mapType(superName), interfaces == null ? null : remapper.mapTypes(interfaces));
+        mappingContext.visit(version, access, name, signature, superName, interfaces, getDelegate());
     }
 
     /**
@@ -61,8 +54,7 @@ public class RemappingVisitor extends ClassVisitor {
      */
     @Override
     public void visitOuterClass(String owner, String name, String descriptor) {
-        String methodDesc = descriptor == null ? null : remapper.mapMethodDesc(descriptor);
-        super.visitOuterClass(remapper.mapType(owner), remapper.mapMethodName(owner, name, methodDesc), methodDesc);
+        mappingContext.visitOuterClass(owner, name, descriptor, getDelegate());
     }
 
     /**
@@ -78,9 +70,7 @@ public class RemappingVisitor extends ClassVisitor {
      */
     @Override
     public void visitInnerClass(String name, String outerName, String innerName, int access) {
-        super.visitInnerClass(remapper.mapType(name),
-                outerName == null ? null : remapper.mapType(outerName),
-                innerName == null ? null : remapper.mapType(innerName), access);
+        mappingContext.visitInnerClass(name, outerName, innerName, access, getDelegate());
     }
 
     /**
@@ -90,7 +80,7 @@ public class RemappingVisitor extends ClassVisitor {
      */
     @Override
     public void visitPermittedSubclass(String permittedSubclass) {
-        super.visitPermittedSubclass(remapper.mapType(permittedSubclass));
+        mappingContext.visitPermittedSubclass(permittedSubclass, getDelegate());
     }
 
     /**
@@ -100,7 +90,7 @@ public class RemappingVisitor extends ClassVisitor {
      */
     @Override
     public void visitNestHost(String nestHost) {
-        super.visitNestHost(remapper.mapType(nestHost));
+        mappingContext.visitNestHost(nestHost, getDelegate());
     }
 
     /**
@@ -109,8 +99,8 @@ public class RemappingVisitor extends ClassVisitor {
      * @param nestMember the internal name of a nest member (see {@link Type#getInternalName()}).
      */
     @Override
-    public void visitNestMember(String nestMember) { // maybe try and fix this
-        super.visitNestMember(remapper.mapType(nestMember));
+    public void visitNestMember(String nestMember) {
+        mappingContext.visitNestMember(nestMember, getDelegate());
     }
 
     /**
@@ -124,10 +114,7 @@ public class RemappingVisitor extends ClassVisitor {
      */
     @Override
     public RecordComponentVisitor visitRecordComponent(String name, String descriptor, String signature) {
-        return super.visitRecordComponent(
-                name,
-                remapper.mapDesc(descriptor),
-                remapper.mapSignature(signature, true));
+        return mappingContext.visitRecordComponent(name, descriptor, signature, getDelegate());
     }
 
 
@@ -151,7 +138,7 @@ public class RemappingVisitor extends ClassVisitor {
      */
     @Override
     public FieldVisitor visitField(int access, String name, String descriptor, String signature, Object value) {
-        return super.visitField(access, remapper.mapFieldName(currentClass, name, descriptor), remapper.mapDesc(descriptor), remapper.mapSignature(signature, true), remapper.mapValue(value));
+        return mappingContext.visitField(access, name, descriptor, signature, value, getDelegate());
     }
 
     /**
@@ -165,20 +152,12 @@ public class RemappingVisitor extends ClassVisitor {
      *                   exceptions do not use generic types.
      * @param exceptions the internal names of the method's exception classes (see {@link Type#getInternalName()}). May
      *                   be {@literal null}.
-     * @return {@linkplain RemapMethodVisitor}
+     * @return {@linkplain MappingMethodVisitor}
      */
     @Override
     public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-        String mappedMethodDesc = remapper.mapMethodDesc(descriptor);
-        String methodName = remapper.mapMethodName(currentClass, name, mappedMethodDesc);
-        MethodVisitor methodVisitor = super.visitMethod(access,
-                methodName,
-                mappedMethodDesc,
-                remapper.mapSignature(signature, false),
-                exceptions == null ? null : remapper.mapTypes(exceptions));
-
-
-        return new RemapMethodVisitor(methodVisitor, mappingManager, hierarchyManager);
+        IMethodContext methodContext = mappingContext.visitMethod(access, name, descriptor, signature, exceptions, getDelegate());
+        return new MappingMethodVisitor(methodContext.getParentVisitor(), methodContext);
     }
     /* Annotation Changes */
 
@@ -196,7 +175,7 @@ public class RemappingVisitor extends ClassVisitor {
      */
     @Override
     public AnnotationVisitor visitTypeAnnotation(int typeRef, TypePath typePath, String descriptor, boolean visible) {
-        return super.visitTypeAnnotation(typeRef, typePath, remapper.mapDesc(descriptor), visible);
+        return mappingContext.visitTypeAnnotation(typeRef, typePath, descriptor, visible, getDelegate());
     }
 
 
@@ -209,6 +188,6 @@ public class RemappingVisitor extends ClassVisitor {
      */
     @Override
     public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
-        return super.visitAnnotation(remapper.mapDesc(descriptor), visible);
+        return mappingContext.visitAnnotation(descriptor, visible, getDelegate());
     }
 }

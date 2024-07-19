@@ -1,8 +1,8 @@
-package org.omnimc.trix.parser.parsers;
+package org.omnimc.trix.mapping.parser.parsers;
 
-import org.omnimc.trix.file.MappingEntry;
-import org.omnimc.trix.managers.MappingManager;
-import org.omnimc.trix.parser.IParser;
+import org.omnimc.trix.mapping.MappingManager;
+import org.omnimc.trix.mapping.entry.MappingEntry;
+import org.omnimc.trix.mapping.parser.IParser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,7 +19,6 @@ public class ProguardParser implements IParser {
     public void parse(MappingManager remapper) {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(remapper.getCurrentFile()));
-
             String entry;
             while ((entry = bufferedReader.readLine()) != null) {
                 if (entry.isEmpty()) {
@@ -178,7 +177,7 @@ public class ProguardParser implements IParser {
                 return brackets + "J";
             }
             case "void" -> {
-                return  "V";
+                return "V";
             }
             default -> {
                 return brackets + "L" + input + ";";

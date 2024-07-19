@@ -1,4 +1,4 @@
-package org.omnimc.trix.file;
+package org.omnimc.trix.mapping.entry;
 
 import java.util.Objects;
 

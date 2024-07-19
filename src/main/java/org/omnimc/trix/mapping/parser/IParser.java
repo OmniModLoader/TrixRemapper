@@ -1,6 +1,6 @@
-package org.omnimc.trix.parser;
+package org.omnimc.trix.mapping.parser;
 
-import org.omnimc.trix.managers.MappingManager;
+import org.omnimc.trix.mapping.MappingManager;
 
 /**
  * @author <b><a href=https://github.com/CadenCCC>Caden</a></b>

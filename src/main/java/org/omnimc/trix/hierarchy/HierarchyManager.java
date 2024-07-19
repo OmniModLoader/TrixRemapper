@@ -1,6 +1,6 @@
-package org.omnimc.trix.managers;
+package org.omnimc.trix.hierarchy;
 
-import org.omnimc.trix.file.ClassInfo;
+import org.omnimc.trix.hierarchy.info.ClassInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,8 +68,24 @@ public class HierarchyManager {
         for (Map.Entry<String, ClassInfo> entry : classFiles.entrySet()) {
             String className = entry.getKey();
             ClassInfo originalClassFile = entry.getValue();
+// Remove recursive search and test with the other one
 
             ClassInfo lookup = this.lookup(originalClassFile, originalClassFile.getDependentClasses());
+
+            /*            ArrayList<String> dependencies = new ArrayList<>(originalClassFile.getDependentClasses()); todo
+            while (!dependencies.isEmpty()) {
+                ArrayList<String> nextDependencies = new ArrayList<>();
+                for (String dependentClass : dependencies) {
+                    ClassInfo file = classFiles.get(dependentClass);
+                    if (file != null) {
+                        resolvedClassFile.getFields().putAll(file.getFields());
+                        resolvedClassFile.getMethods().putAll(file.getMethods());
+                        nextDependencies.addAll(file.getDependentClasses());
+                    }
+                }
+                dependencies = nextDependencies;
+            }*/
+
 
             classFileHashMap.put(className, lookup);
         }
