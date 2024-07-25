@@ -30,6 +30,6 @@ public class MappingChange implements IClassChange {
             name = name.replace(".class", "");
         }
 
-        return new ClassFile(mappingContext.getMappingManager().getClass(name), writer.toByteArray());
+        return new ClassFile(name, writer.toByteArray());
     }
 }

@@ -1,6 +1,6 @@
 package org.omnimc.trix;
 
-import org.omnimc.trix.mapping.MappingManager;
+import org.omnimc.lumina.paser.ParsingContainer;
 import org.objectweb.asm.commons.Remapper;
 
 /**
@@ -8,10 +8,10 @@ import org.objectweb.asm.commons.Remapper;
  * @since 1.0.0
  */
 public class TrixRemapper extends Remapper {
-    private final MappingManager mappingManager;
+    private final ParsingContainer container;
 
-    public TrixRemapper(MappingManager mappingManager) {
-        this.mappingManager = mappingManager;
+    public TrixRemapper(ParsingContainer container) {
+        this.container = container;
     }
 
 
@@ -22,16 +22,16 @@ public class TrixRemapper extends Remapper {
 
     @Override
     public String mapType(String internalName) {
-        return mappingManager.getClass(internalName);
+        return container.getClassName(internalName);
     }
 
     @Override
     public String mapMethodName(String owner, String name, String descriptor) {
-        return mappingManager.getMethodName(owner, name, descriptor);
+        return container.getMethodName(owner, name, descriptor);
     }
 
     @Override
     public String mapFieldName(String owner, String name, String descriptor) {
-        return mappingManager.getFieldName(owner, name);
+        return container.getFieldName(owner, name);
     }
 }

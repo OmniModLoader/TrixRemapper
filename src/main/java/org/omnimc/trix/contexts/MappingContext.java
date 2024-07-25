@@ -5,22 +5,19 @@ import org.objectweb.asm.commons.Remapper;
 import org.omnimc.trix.contexts.interfaces.IMappingContext;
 import org.omnimc.trix.contexts.interfaces.IMethodContext;
 import org.omnimc.trix.hierarchy.HierarchyManager;
-import org.omnimc.trix.mapping.MappingManager;
 
 /**
  * @author <b><a href=https://github.com/CadenCCC>Caden</a></b>
  * @since 1.0.0
  */
 public class MappingContext implements IMappingContext {
-    private final MappingManager mappingManager;
     private final HierarchyManager hierarchyManager;
     private final Remapper globalRemapper;
     private String currentClass;
 
-    public MappingContext(MappingManager mappingManager, HierarchyManager hierarchyManager) {
-        this.mappingManager = mappingManager;
+    public MappingContext(Remapper globalRemapper, HierarchyManager hierarchyManager) {
         this.hierarchyManager = hierarchyManager;
-        this.globalRemapper = mappingManager.getRemapper();
+        this.globalRemapper = globalRemapper;
     }
 
     @Override
@@ -83,7 +80,7 @@ public class MappingContext implements IMappingContext {
                 globalRemapper.mapSignature(signature, false),
                 exceptions == null ? null : globalRemapper.mapTypes(exceptions));
 
-        return new MethodContext(mappingManager, hierarchyManager, methodVisitor);
+        return new MethodContext(globalRemapper, hierarchyManager, methodVisitor);
     }
 
     @Override
@@ -96,8 +93,4 @@ public class MappingContext implements IMappingContext {
         return classVisitor.visitAnnotation(globalRemapper.mapDesc(descriptor), visible);
     }
 
-    @Override
-    public MappingManager getMappingManager() {
-        return mappingManager;
-    }
 }

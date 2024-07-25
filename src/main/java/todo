@@ -1,4 +1,6 @@
 todo
+Change how i do the contexts, its not intuitive enough
+
 Create a Access Transformer API so the remapper can use it. todo
 Implement Parameter Name additions in case we want to change param names
 

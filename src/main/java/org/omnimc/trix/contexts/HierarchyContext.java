@@ -1,9 +1,9 @@
 package org.omnimc.trix.contexts;
 
+import org.objectweb.asm.commons.Remapper;
 import org.omnimc.trix.contexts.interfaces.IHierarchyContext;
 import org.omnimc.trix.hierarchy.info.ClassInfo;
 import org.omnimc.trix.hierarchy.HierarchyManager;
-import org.omnimc.trix.mapping.MappingManager;
 
 /**
  * @author <b><a href=https://github.com/CadenCCC>Caden</a></b>
@@ -11,12 +11,12 @@ import org.omnimc.trix.mapping.MappingManager;
  */
 public class HierarchyContext implements IHierarchyContext {
     private final HierarchyManager hierarchyManager;
-    private final MappingManager mappingManager;
+    private final Remapper globalRemapper;
     private ClassInfo classInfo;
 
-    public HierarchyContext(HierarchyManager hierarchyManager, MappingManager mappingManager) {
+    public HierarchyContext(HierarchyManager hierarchyManager, Remapper globalRemapper) {
         this.hierarchyManager = hierarchyManager;
-        this.mappingManager = mappingManager;
+        this.globalRemapper = globalRemapper;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class HierarchyContext implements IHierarchyContext {
             return;
         }
 
-        classInfo.addMethod(name + descriptor, mappingManager.getMethodName(classInfo.getClassName(), name, mappingManager.getRemapper().mapMethodDesc(descriptor)));
+        classInfo.addMethod(name + descriptor, globalRemapper.mapMethodName(classInfo.getClassName(), name, globalRemapper.mapMethodDesc(descriptor)));
     }
 
     @Override
@@ -47,7 +47,7 @@ public class HierarchyContext implements IHierarchyContext {
             return;
         }
 
-        classInfo.addField(name + descriptor, mappingManager.getFieldName(classInfo.getClassName(), name));
+        classInfo.addField(name + descriptor, globalRemapper.mapFieldName(classInfo.getClassName(), name, descriptor));
     }
 
     @Override

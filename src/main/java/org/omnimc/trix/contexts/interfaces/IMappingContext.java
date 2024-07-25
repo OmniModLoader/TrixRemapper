@@ -1,7 +1,6 @@
 package org.omnimc.trix.contexts.interfaces;
 
 import org.objectweb.asm.*;
-import org.omnimc.trix.mapping.MappingManager;
 
 /**
  * @author <b><a href=https://github.com/CadenCCC>Caden</a></b>
@@ -29,6 +28,4 @@ public interface IMappingContext {
     AnnotationVisitor visitTypeAnnotation(int typeRef, TypePath typePath, String descriptor, boolean visible, ClassVisitor classVisitor);
 
     AnnotationVisitor visitAnnotation(String descriptor, boolean visible, ClassVisitor classVisitor);
-
-    MappingManager getMappingManager();
 }

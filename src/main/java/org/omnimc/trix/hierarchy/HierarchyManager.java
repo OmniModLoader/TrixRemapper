@@ -68,26 +68,23 @@ public class HierarchyManager {
         for (Map.Entry<String, ClassInfo> entry : classFiles.entrySet()) {
             String className = entry.getKey();
             ClassInfo originalClassFile = entry.getValue();
-// Remove recursive search and test with the other one
 
-            ClassInfo lookup = this.lookup(originalClassFile, originalClassFile.getDependentClasses());
-
-            /*            ArrayList<String> dependencies = new ArrayList<>(originalClassFile.getDependentClasses()); todo
+            ArrayList<String> dependencies = new ArrayList<>(originalClassFile.getDependentClasses());
             while (!dependencies.isEmpty()) {
                 ArrayList<String> nextDependencies = new ArrayList<>();
-                for (String dependentClass : dependencies) {
-                    ClassInfo file = classFiles.get(dependentClass);
+                for (String dependency : dependencies) {
+                    ClassInfo file = classFiles.get(dependency);
                     if (file != null) {
-                        resolvedClassFile.getFields().putAll(file.getFields());
-                        resolvedClassFile.getMethods().putAll(file.getMethods());
+                        originalClassFile.getFields().putAll(file.getFields());
+                        originalClassFile.getMethods().putAll(file.getMethods());
                         nextDependencies.addAll(file.getDependentClasses());
                     }
                 }
                 dependencies = nextDependencies;
-            }*/
+            }
 
 
-            classFileHashMap.put(className, lookup);
+            classFileHashMap.put(className, originalClassFile);
         }
 
         classFiles.clear();
@@ -101,6 +98,7 @@ public class HierarchyManager {
      * @param dependentClasses  The list of dependent classes.
      * @return The resolved ClassInfo object.
      */
+    @Deprecated
     private ClassInfo lookup(ClassInfo originalClassFile, ArrayList<String> dependentClasses) {
         ClassInfo tempClassFile = originalClassFile;
         ArrayList<String> listOfPossibleLookups = new ArrayList<>();

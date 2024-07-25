@@ -4,7 +4,6 @@ import org.objectweb.asm.*;
 import org.objectweb.asm.commons.Remapper;
 import org.omnimc.trix.contexts.interfaces.IMethodContext;
 import org.omnimc.trix.hierarchy.HierarchyManager;
-import org.omnimc.trix.mapping.MappingManager;
 
 /**
  * @author <b><a href=https://github.com/CadenCCC>Caden</a></b>
@@ -15,10 +14,10 @@ public class MethodContext implements IMethodContext {
     private final MethodVisitor parentVisitor;
     private final Remapper globalRemapper;
 
-    public MethodContext(MappingManager mappingManager, HierarchyManager hierarchyManager, MethodVisitor parentVisitor) {
+    public MethodContext(Remapper globalRemapper, HierarchyManager hierarchyManager, MethodVisitor parentVisitor) {
         this.hierarchyManager = hierarchyManager;
         this.parentVisitor = parentVisitor;
-        this.globalRemapper = mappingManager.getRemapper();
+        this.globalRemapper = globalRemapper;
     }
 
     @Override
