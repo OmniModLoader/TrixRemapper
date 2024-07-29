@@ -32,7 +32,7 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-
+        // Use try to use SPI for this if you want too.
         Profiler profiler = new Profiler("normal");
         profiler.start();
 
