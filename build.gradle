@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org.omnimc.trix'
-version = '0.0.1'
+version = '0.0.3'
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -29,7 +29,8 @@ dependencies {
     implementation 'com.github.7orivorian:RuntimeProfiler:1.1.0'
 
     implementation 'com.github.OmniModLoader:ASMHelper:2.2.5'
-    implementation 'com.github.OmniModLoader:Lumina:1.0.0'
+    implementation 'com.github.OmniModLoader:Lumina:18ece749'
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
