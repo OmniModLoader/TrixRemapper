@@ -21,8 +21,9 @@ public class TestClass implements IServiceProfile {
 
     @Override
     public Namespace getNamespace() {
-        File[] files = {new File("C:\\Users\\CryroByte\\Desktop\\protection\\TrixObfuscator\\1.21.jar")};
-        return Namespace.of("omnimc.minecraft", (Object[]) files);
+/*        File[] files = {new File("C:\\Users\\CryroByte\\Desktop\\protection\\TrixObfuscator\\1.21.jar")};
+        return Namespace.of("omnimc.minecraft", (Object[]) files);*/
+        return null;
     }
 
     @Override
@@ -40,10 +41,6 @@ public class TestClass implements IServiceProfile {
 
     @Override
     public LinkedHashSet<ITransformer> getTransformers() {
-        LinkedHashSet<ITransformer> transformers = new LinkedHashSet<>();
-
-        transformers.add(new TestClassTransformer());
-
-        return transformers;
+        return null;
     }
 }

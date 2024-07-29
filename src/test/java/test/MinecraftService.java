@@ -33,6 +33,7 @@ public class MinecraftService implements IService {
             return mappingManager;
         });*/
 
+/*
         returnTypes.add(HierarchyManager::new);
 
         List<Object> listPossibleFiles = currentProfile.getNamespace().getValues()
@@ -55,6 +56,7 @@ public class MinecraftService implements IService {
                 currentProfile.getOutputs(classManager.outputFile());
             }
         }
+*/
 
 
     }

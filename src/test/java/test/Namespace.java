@@ -15,6 +15,7 @@ public interface Namespace { // A namespace contains all the jars needing remapp
 
     LinkedHashSet<Object> getValues();
 
+/*
     static Namespace of(@NotNull String name, @NotNull Object... values) {
         return new Namespace() {
             @Override
@@ -36,5 +37,6 @@ public interface Namespace { // A namespace contains all the jars needing remapp
             }
         };
     }
+*/
 
 }
