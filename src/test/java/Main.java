@@ -16,7 +16,7 @@ import java.util.zip.Deflater;
  * @author <b><a href=https://github.com/CadenCCC>Caden</a></b>
  * @since 1.0.0
  */
-public class Main {
+public class Main { // todo fix this and make it actually usable and build able
 
     private static final String MINECRAFT_MAPPINGS = "C:\\Users\\CryroByte\\Desktop\\protection\\TrixObfuscator\\minecraftmappings.txt";
     private static final String MINECRAFT_JAR = "C:\\Users\\CryroByte\\Desktop\\protection\\TrixObfuscator\\1.21.jar";
@@ -50,10 +50,12 @@ public class Main {
 
         profiler.swap("SafeClassManager Reading");
         SafeClassManager classManager = new SafeClassManager();
-        classManager.readJarFile(minecraft);
+        System.out.println("reading");
+        classManager.readJarFile(minecraft); // todo find out why this is so slow
+        System.out.println("done reading");
 
-        profiler.swap("Applying Hierarchy");
         classManager.applyChanges(Context.ofHierarchy(trixRemapper, hierarchyManager));
+        profiler.swap("Applying Hierarchy");
         hierarchyManager.populateClassFiles();
 
         profiler.swap("Applying mappings");
