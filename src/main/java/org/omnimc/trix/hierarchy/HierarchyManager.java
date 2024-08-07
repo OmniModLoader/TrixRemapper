@@ -1,3 +1,27 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2024 OmniMC
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package org.omnimc.trix.hierarchy;
 
 import org.jetbrains.annotations.NotNull;
@@ -253,8 +277,8 @@ public class HierarchyManager {
     }
 
     /**
-     * Provides a custom {@linkplain Remapper} that translates obfuscated names to their readable equivalents
-     * using class, method, and field name mappings.
+     * Provides a custom {@linkplain Remapper} that translates obfuscated names to their readable equivalents using
+     * class, method, and field name mappings.
      *
      * @return A {@linkplain Remapper} instance that maps obfuscated names to their readable forms.
      */
@@ -286,7 +310,8 @@ public class HierarchyManager {
         /**
          * <h6>Maps the internal name of a class type.
          *
-         * <p>This method uses {@linkplain HierarchyManager#getClassName(String)} to convert the internal name of a class
+         * <p>This method uses {@linkplain HierarchyManager#getClassName(String)} to convert the internal name of a
+         * class
          * (e.g., `java/lang/String`) to its readable form.</p>
          *
          * @param internalName The internal name of the class.
@@ -301,12 +326,13 @@ public class HierarchyManager {
          * <h6>Maps the name of a method.
          *
          * <p>This method translates an obfuscated method name to its readable form. It uses the method's
-         * descriptor and name to find the readable method name through {@linkplain HierarchyManager#getMethodName(String, String, String)}.
-         * If a readable name is not found, it falls back to the original name. If the method is private,
-         * it checks for a private method name using {@linkplain HierarchyManager#getPrivateMethodName(String, String, String)}.</p>
+         * descriptor and name to find the readable method name through
+         * {@linkplain HierarchyManager#getMethodName(String, String, String)}. If a readable name is not found, it
+         * falls back to the original name. If the method is private, it checks for a private method name using
+         * {@linkplain HierarchyManager#getPrivateMethodName(String, String, String)}.</p>
          *
-         * @param owner The internal name of the owner class of the method.
-         * @param name The obfuscated name of the method.
+         * @param owner      The internal name of the owner class of the method.
+         * @param name       The obfuscated name of the method.
          * @param descriptor The method descriptor.
          * @return The mapped method name, or the original method name if no mapping is found.
          */
@@ -341,12 +367,13 @@ public class HierarchyManager {
          * <h6>Maps the name of a field.
          *
          * <p>This method translates an obfuscated field name to its readable form. It uses the field's
-         * descriptor and name to find the readable field name through {@linkplain HierarchyManager#getFieldName(String, String, String)}.
-         * If a readable name is not found, it falls back to the original name. If the field is private,
-         * it checks for a private field name using {@linkplain HierarchyManager#getPrivateFieldName(String, String, String)}.</p>
+         * descriptor and name to find the readable field name through
+         * {@linkplain HierarchyManager#getFieldName(String, String, String)}. If a readable name is not found, it falls
+         * back to the original name. If the field is private, it checks for a private field name using
+         * {@linkplain HierarchyManager#getPrivateFieldName(String, String, String)}.</p>
          *
-         * @param owner The internal name of the owner class of the field.
-         * @param name The obfuscated name of the field.
+         * @param owner      The internal name of the owner class of the field.
+         * @param name       The obfuscated name of the field.
          * @param descriptor The field descriptor.
          * @return The mapped field name, or the original field name if no mapping is found.
          */
