@@ -12,11 +12,7 @@ import org.omnimc.trix.mapping.MappingChange;
  */
 public class Context {
 
-    public static IClassChange ofMapping(Remapper remapper, HierarchyManager hierarchyManager) {
-        return new MappingChange(new MappingContext(remapper, hierarchyManager));
-    }
-
-    public static IClassChange ofHierarchy(Remapper remapper, HierarchyManager hierarchyManager) {
-        return new HierarchyChange(new HierarchyContext(hierarchyManager, remapper));
+    public static IClassChange ofMapping(Remapper remapper) {
+        return new MappingChange(new MappingContext(remapper));
     }
 }

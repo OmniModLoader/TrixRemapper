@@ -11,12 +11,10 @@ import org.omnimc.trix.hierarchy.HierarchyManager;
  * @since 1.0.0
  */
 public class MappingContext implements IMappingContext {
-    private final HierarchyManager hierarchyManager;
     private final Remapper globalRemapper;
     private String currentClass;
 
-    public MappingContext(Remapper globalRemapper, HierarchyManager hierarchyManager) {
-        this.hierarchyManager = hierarchyManager;
+    public MappingContext(Remapper globalRemapper) {
         this.globalRemapper = globalRemapper;
     }
 
@@ -80,7 +78,7 @@ public class MappingContext implements IMappingContext {
                 globalRemapper.mapSignature(signature, false),
                 exceptions == null ? null : globalRemapper.mapTypes(exceptions));
 
-        return new MethodContext(globalRemapper, hierarchyManager, methodVisitor);
+        return new MethodContext(globalRemapper, methodVisitor);
     }
 
     @Override

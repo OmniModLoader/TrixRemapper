@@ -10,12 +10,10 @@ import org.omnimc.trix.hierarchy.HierarchyManager;
  * @since 1.0.0
  */
 public class MethodContext implements IMethodContext {
-    private final HierarchyManager hierarchyManager;
     private final MethodVisitor parentVisitor;
     private final Remapper globalRemapper;
 
-    public MethodContext(Remapper globalRemapper, HierarchyManager hierarchyManager, MethodVisitor parentVisitor) {
-        this.hierarchyManager = hierarchyManager;
+    public MethodContext(Remapper globalRemapper, MethodVisitor parentVisitor) {
         this.parentVisitor = parentVisitor;
         this.globalRemapper = globalRemapper;
     }
@@ -37,7 +35,7 @@ public class MethodContext implements IMethodContext {
                         desc = globalRemapper.mapDesc(desc);
                     }
 
-                    String handleName = desc.contains("(") ? globalRemapper.mapMethodName(owner, ((Handle) bootstrapMethodArguments[i]).getName(), desc) : globalRemapper.mapFieldName(owner, ((Handle) bootstrapMethodArguments[i]).getName(), null);
+                    String handleName = desc.contains("(") ? globalRemapper.mapMethodName(owner, ((Handle) bootstrapMethodArguments[i]).getName(), desc) : globalRemapper.mapFieldName(owner, ((Handle) bootstrapMethodArguments[i]).getName(), desc);
 
                     int tag = ((Handle) bootstrapMethodArguments[i]).getTag();
                     boolean anInterface = ((Handle) bootstrapMethodArguments[i]).isInterface();
@@ -61,7 +59,6 @@ public class MethodContext implements IMethodContext {
     @Override
     public void visitLdcInsn(Object value, MethodVisitor methodVisitor) {
         methodVisitor.visitLdcInsn(globalRemapper.mapValue(value));
-
     }
 
     @Override
@@ -106,11 +103,7 @@ public class MethodContext implements IMethodContext {
     public void visitFieldInsn(int opcode, String owner, String name, String descriptor, MethodVisitor methodVisitor) {
         String mappedName = globalRemapper.mapFieldName(owner, name, descriptor);
 
-        if (mappedName.equals(name) && hierarchyManager != null) {
-            mappedName = hierarchyManager.getFieldName(owner, name, descriptor);
-        }
-
-        methodVisitor.visitFieldInsn(opcode, globalRemapper.mapType(owner), mappedName == null ? globalRemapper.mapMethodName(owner, name, descriptor) : mappedName, globalRemapper.mapDesc(descriptor));
+        methodVisitor.visitFieldInsn(opcode, globalRemapper.mapType(owner), mappedName, globalRemapper.mapDesc(descriptor));
     }
 
     @Override
@@ -124,15 +117,12 @@ public class MethodContext implements IMethodContext {
 
         String remapedName = globalRemapper.mapMethodName(ownersName, name, mappedDescriptor);
 
-        if (remapedName.equals(name) && hierarchyManager != null) {
-            remapedName = hierarchyManager.getMethodName(ownersName, name, descriptor);
-        }
-
         if (owner.contains("[")) {
-            methodVisitor.visitMethodInsn(opcode, globalRemapper.mapDesc(owner), remapedName == null ? globalRemapper.mapMethodName(ownersName, name, mappedDescriptor) : remapedName, mappedDescriptor, isInterface);
+            methodVisitor.visitMethodInsn(opcode, globalRemapper.mapDesc(owner), remapedName, mappedDescriptor, isInterface);
             return;
         }
-        methodVisitor.visitMethodInsn(opcode, globalRemapper.mapType(ownersName), remapedName == null ? globalRemapper.mapMethodName(ownersName, name, mappedDescriptor) : remapedName, mappedDescriptor, isInterface);
+
+        methodVisitor.visitMethodInsn(opcode, globalRemapper.mapType(ownersName), remapedName, mappedDescriptor, isInterface);
     }
 
     @Override
