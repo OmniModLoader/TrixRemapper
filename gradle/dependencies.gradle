@@ -47,5 +47,5 @@ dependencies {
 
     / Project /
     implementation 'com.github.OmniModLoader:ASMHelper:2.2.9'
-    implementation 'com.github.OmniModLoader:Lumina:1.0.5'
+    implementation 'com.github.OmniModLoader:Lumina:1.2.5'
 }
