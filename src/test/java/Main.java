@@ -4,8 +4,8 @@ import org.omnimc.asm.file.IOutputFile;
 import org.omnimc.asm.manager.thread.SafeClassManager;
 import org.omnimc.lumina.paser.ParsingContainer;
 import org.omnimc.lumina.reader.LuminaReader;
-import org.omnimc.trix.TrixRemapper;
 import org.omnimc.trix.contexts.Context;
+import org.omnimc.trix.hierarchy.HierarchyChange;
 import org.omnimc.trix.hierarchy.HierarchyManager;
 
 import java.io.*;
@@ -22,14 +22,6 @@ public class Main { // todo fix this and make it actually usable and build able
     private static final String MINECRAFT_JAR = "C:\\Users\\CryroByte\\Desktop\\protection\\TrixObfuscator\\1.21.jar";
     private static final String OUTPUT_JAR = "C:\\Users\\CryroByte\\Desktop\\TrixRemapper\\modified-1.21-Server.jar";
 
-    /**
-     * A OmniMC ModHandler will have things in the META-INF like
-     * <p>org.omnimc.handler.IModLoader</p>
-     * <p>org.omnimc.handler.IModEntryPoint</p>
-     * <p>org.omnimc.handler.mixins.IMixinEntry</p>
-     * <p>org.omnimc.handler.trix.access.IAccess</p>
-     */
-
 
     public static void main(String[] args) throws IOException {
         // Use try to use SPI for this if you want too.
@@ -38,10 +30,7 @@ public class Main { // todo fix this and make it actually usable and build able
 
         profiler.push("LuminaReader");
         LuminaReader luminaReader = new LuminaReader();
-        ParsingContainer parsingContainer = luminaReader.readPath("C:\\Users\\CryroByte\\Desktop\\Lumina-github\\run");
-
-        profiler.swap("Remapper");
-        TrixRemapper trixRemapper = new TrixRemapper(parsingContainer);
+        ParsingContainer parsingContainer = luminaReader.readPath("C:\\Users\\CryroByte\\Desktop\\Lumina-github\\run\\hierarchy");
 
         profiler.swap("HierarchyManager");
         HierarchyManager hierarchyManager = new HierarchyManager();
@@ -54,15 +43,15 @@ public class Main { // todo fix this and make it actually usable and build able
         classManager.readJarFile(minecraft); // todo find out why this is so slow
         System.out.println("done reading");
 
-        classManager.applyChanges(Context.ofHierarchy(trixRemapper, hierarchyManager));
+        classManager.applyChanges(new HierarchyChange(hierarchyManager, parsingContainer));
         profiler.swap("Applying Hierarchy");
         hierarchyManager.populateClassFiles();
 
         profiler.swap("Applying mappings");
-        classManager.applyChanges(Context.ofMapping(trixRemapper, hierarchyManager));
+        classManager.applyChanges(Context.ofMapping(hierarchyManager.getRemapper()));
 
         profiler.swap("FileNameChanges");
-        classManager.applyChanges(new FileNameChange(trixRemapper));
+        classManager.applyChanges(new FileNameChange(hierarchyManager.getRemapper()));
 
         profiler.swap("OutputFile");
         IOutputFile output = classManager.outputFile();

@@ -13,7 +13,6 @@ public class FileNameChange implements IClassChange {
         this.remapper = remapper;
     }
 
-
     @Override
     public ClassFile applyChange(String name, byte[] classBytes) {
         return new ClassFile(remapper.mapType(name), classBytes);
