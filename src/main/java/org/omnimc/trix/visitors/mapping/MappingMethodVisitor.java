@@ -237,14 +237,19 @@ public class MappingMethodVisitor extends MethodVisitor {
      *
      * @param parameter  the parameter index. This index must be strictly smaller than the number of parameters in the
      *                   method descriptor, and strictly smaller than the parameter count specified in
-     *                   {@link #visitAnnotableParameterCount}. Important note: <i>a parameter index i is not required
-     *                   to correspond to the i'th parameter descriptor in the method descriptor</i>, in particular in
-     *                   case of synthetic parameters (see
-     *                   https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.18).
+     *                   {@link #visitAnnotableParameterCount}.
+     *                   <p>
+     *                   <b>Important note:</b> <i>a parameter index {@code i} is not required to correspond to the
+     *                   {@code i'th}
+     *                   parameter descriptor in the method descriptor</i>, in particular in case of synthetic
+     *                   parameters (as seen
+     *                   <a
+     *                   href="https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.18">here</a>).
      * @param descriptor the class descriptor of the annotation class.
      * @param visible    {@literal true} if the annotation is visible at runtime.
      * @return {@linkplain AnnotationVisitor}
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public AnnotationVisitor visitParameterAnnotation(int parameter, String descriptor, boolean visible) {
         return methodContext.visitParameterAnnotation(parameter, descriptor, visible, getDelegate());
