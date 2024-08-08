@@ -90,10 +90,16 @@ public class MethodInfo {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         MethodInfo that = (MethodInfo) o;
-        return Objects.equals(getObfuscatedName(), that.getObfuscatedName()) && Objects.equals(getMethodName(), that.getMethodName()) && Objects.equals(getDescriptor(), that.getDescriptor());
+        return Objects.equals(getObfuscatedName(), that.getObfuscatedName())
+               && Objects.equals(getMethodName(), that.getMethodName())
+               && Objects.equals(getDescriptor(), that.getDescriptor());
     }
 
     @Override

@@ -197,10 +197,17 @@ public class ClassInfo {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ClassInfo classInfo = (ClassInfo) o;
-        return Objects.equals(getClassName(), classInfo.getClassName()) && Objects.equals(getDependentClasses(), classInfo.getDependentClasses()) && Objects.equals(getFields(), classInfo.getFields()) && Objects.equals(getMethods(), classInfo.getMethods());
+        return Objects.equals(getClassName(), classInfo.getClassName())
+               && Objects.equals(getDependentClasses(), classInfo.getDependentClasses())
+               && Objects.equals(getFields(), classInfo.getFields())
+               && Objects.equals(getMethods(), classInfo.getMethods());
     }
 
     @Override
