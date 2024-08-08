@@ -31,6 +31,7 @@ import org.objectweb.asm.*;
  * @since 1.0.0
  */
 public interface IMappingContext {
+
     void visit(int version, int access, String name, String signature, String superName, String[] interfaces, ClassVisitor classVisitor);
 
     void visitOuterClass(String owner, String name, String descriptor, ClassVisitor classVisitor);

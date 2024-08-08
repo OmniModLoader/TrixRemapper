@@ -49,6 +49,7 @@ import static org.omnimc.asm.access.AccessFlagChecker.isPrivatePresent;
  * @since 1.0.0
  */
 public class HierarchyClassVisitor extends ClassVisitor {
+
     private final HierarchyManager hierarchyManager;
     private final ParsingContainer container;
 

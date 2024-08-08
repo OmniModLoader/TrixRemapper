@@ -40,6 +40,7 @@ import org.omnimc.lumina.paser.ParsingContainer;
  * @since 1.0.0
  */
 public class TrixRemapper extends Remapper {
+
     private final ParsingContainer container;
 
     public TrixRemapper(ParsingContainer container) {

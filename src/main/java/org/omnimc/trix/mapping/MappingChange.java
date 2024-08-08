@@ -36,6 +36,7 @@ import org.omnimc.trix.visitors.mapping.MappingClassVisitor;
  * @since 1.0.0
  */
 public class MappingChange implements IClassChange {
+
     private final IMappingContext mappingContext;
 
     public MappingChange(IMappingContext mappingContext) {

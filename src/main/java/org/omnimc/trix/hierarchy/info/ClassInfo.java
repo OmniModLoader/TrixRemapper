@@ -42,6 +42,7 @@ import java.util.Objects;
  * @since 1.0.0
  */
 public class ClassInfo {
+
     private final String className;
 
     private final ArrayList<String> dependentClasses = new ArrayList<>();

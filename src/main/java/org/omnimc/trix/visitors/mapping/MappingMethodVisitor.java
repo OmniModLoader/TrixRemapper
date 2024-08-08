@@ -32,13 +32,13 @@ import org.omnimc.trix.contexts.interfaces.IMethodContext;
  * @since 1.0.0
  */
 public class MappingMethodVisitor extends MethodVisitor {
+
     private final IMethodContext methodContext;
 
     public MappingMethodVisitor(MethodVisitor methodVisitor, IMethodContext methodContext) {
         super(Opcodes.ASM9, methodVisitor);
         this.methodContext = methodContext;
     }
-
 
     /**
      * {@inheritDoc}
@@ -153,7 +153,6 @@ public class MappingMethodVisitor extends MethodVisitor {
     public void visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface) {
         methodContext.visitMethodInsn(opcode, owner, name, descriptor, isInterface, getDelegate());
     }
-
 
     /**
      * {@inheritDoc}

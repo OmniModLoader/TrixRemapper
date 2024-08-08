@@ -40,6 +40,7 @@ import java.util.Objects;
  */
 @SuppressWarnings("ClassCanBeRecord")
 public class MethodInfo {
+
     private final String obfuscatedName;
     private final String methodName;
     private final String descriptor;

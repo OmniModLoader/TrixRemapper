@@ -33,12 +33,14 @@ import org.omnimc.trix.contexts.interfaces.IMethodContext;
  * @since 1.0.0
  */
 public class MappingClassVisitor extends ClassVisitor {
+
     private final IMappingContext mappingContext;
 
     public MappingClassVisitor(ClassVisitor classVisitor, IMappingContext mappingContext) {
         super(Opcodes.ASM9, classVisitor);
         this.mappingContext = mappingContext;
     }
+
 
     /* Class changes */
 
@@ -183,6 +185,8 @@ public class MappingClassVisitor extends ClassVisitor {
         IMethodContext methodContext = mappingContext.visitMethod(access, name, descriptor, signature, exceptions, getDelegate());
         return new MappingMethodVisitor(methodContext.getParentVisitor(), methodContext);
     }
+
+
     /* Annotation Changes */
 
     /**

@@ -46,6 +46,7 @@ import java.util.Map;
  * @since 1.0.0
  */
 public class HierarchyManager {
+
     private final HashMap<String, ClassInfo> classFiles = new HashMap<>();
 
     /**
@@ -268,7 +269,6 @@ public class HierarchyManager {
                 dependencies = nextDependencies;
             }
 
-
             classFileHashMap.put(className, originalClassFile);
         }
 
@@ -287,6 +287,7 @@ public class HierarchyManager {
     }
 
     static class CustomRemapper extends Remapper {
+
         private final HierarchyManager hierarchyManager;
 
         CustomRemapper(HierarchyManager hierarchyManager) {

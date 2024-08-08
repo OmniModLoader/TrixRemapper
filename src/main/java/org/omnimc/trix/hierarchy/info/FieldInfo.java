@@ -40,6 +40,7 @@ import java.util.Objects;
  */
 @SuppressWarnings("ClassCanBeRecord")
 public class FieldInfo {
+
     private final String obfuscatedName;
     private final String fieldName;
     private final String descriptor;
