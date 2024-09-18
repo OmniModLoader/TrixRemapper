@@ -26,23 +26,23 @@ package org.omnimc.trix;
 
 import org.objectweb.asm.Type;
 import org.objectweb.asm.commons.Remapper;
-import org.omnimc.lumina.paser.ParsingContainer;
+import org.omnimc.lumina.paser.MappingContainer;
 
 /**
- * {@code TrixRemapper} is a custom remapper that uses information from the {@linkplain ParsingContainer} to translate
+ * {@code TrixRemapper} is a custom remapper that uses information from the {@linkplain MappingContainer} to translate
  * class, method, and field names from obfuscated to readable forms.
  *
  * <p>This remapper helps convert internal names, method names, and field names into more understandable forms
- * based on the mappings provided by the {@linkplain ParsingContainer}. It's especially useful when working with
+ * based on the mappings provided by the {@linkplain MappingContainer}. It's especially useful when working with
  * obfuscated code and you need to map it to more meaningful names.</p>
  *
  * @author <b><a href="https://github.com/CadenCCC">Caden</a></b>
  * @since 1.0.0
  */
 public class TrixRemapper extends Remapper {
-    private final ParsingContainer container;
+    private final MappingContainer container;
 
-    public TrixRemapper(ParsingContainer container) {
+    public TrixRemapper(MappingContainer container) {
         this.container = container;
     }
 

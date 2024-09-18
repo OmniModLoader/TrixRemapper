@@ -28,7 +28,7 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.omnimc.asm.changes.IClassChange;
 import org.omnimc.asm.file.ClassFile;
-import org.omnimc.lumina.paser.ParsingContainer;
+import org.omnimc.lumina.paser.MappingContainer;
 import org.omnimc.trix.visitors.hierarchy.HierarchyClassVisitor;
 
 /**
@@ -37,11 +37,11 @@ import org.omnimc.trix.visitors.hierarchy.HierarchyClassVisitor;
  */
 public class HierarchyChange implements IClassChange {
     private final HierarchyManager hierarchyManager;
-    private final ParsingContainer parsingContainer;
+    private final MappingContainer mappingContainer;
 
-    public HierarchyChange(HierarchyManager hierarchyManager, ParsingContainer parsingContainer) {
+    public HierarchyChange(HierarchyManager hierarchyManager, MappingContainer mappingContainer) {
         this.hierarchyManager = hierarchyManager;
-        this.parsingContainer = parsingContainer;
+        this.mappingContainer = mappingContainer;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class HierarchyChange implements IClassChange {
         ClassReader reader = new ClassReader(classBytes);
         ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
 
-        HierarchyClassVisitor hierarchyVisitor = new HierarchyClassVisitor(writer, hierarchyManager, parsingContainer);
+        HierarchyClassVisitor hierarchyVisitor = new HierarchyClassVisitor(writer, hierarchyManager, mappingContainer);
         reader.accept(hierarchyVisitor, ClassReader.SKIP_CODE | ClassReader.SKIP_FRAMES | ClassReader.SKIP_DEBUG);
 
         return new ClassFile(name.replace(".class", ""), classBytes);

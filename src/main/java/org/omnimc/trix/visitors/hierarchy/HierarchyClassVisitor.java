@@ -29,7 +29,7 @@ import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.commons.Remapper;
-import org.omnimc.lumina.paser.ParsingContainer;
+import org.omnimc.lumina.paser.MappingContainer;
 import org.omnimc.trix.TrixRemapper;
 import org.omnimc.trix.hierarchy.HierarchyManager;
 import org.omnimc.trix.hierarchy.info.ClassInfo;
@@ -38,7 +38,7 @@ import static org.omnimc.asm.access.AccessFlagChecker.isPrivatePresent;
 
 /**
  * {@code HierarchyClassVisitor} is a custom {@linkplain ClassVisitor} that works with the {@linkplain HierarchyManager}
- * to gather information about classes, including their fields and methods. It uses a {@linkplain ParsingContainer} to
+ * to gather information about classes, including their fields and methods. It uses a {@linkplain MappingContainer} to
  * map names and descriptors from obfuscated to readable forms.
  *
  * <p>This visitor collects class details as it processes them, including fields and methods, and updates
@@ -50,7 +50,7 @@ import static org.omnimc.asm.access.AccessFlagChecker.isPrivatePresent;
  */
 public class HierarchyClassVisitor extends ClassVisitor {
     private final HierarchyManager hierarchyManager;
-    private final ParsingContainer container;
+    private final MappingContainer container;
 
     private final Remapper remapper;
 
@@ -59,13 +59,13 @@ public class HierarchyClassVisitor extends ClassVisitor {
 
     /**
      * <h6>Constructs a new {@code HierarchyClassVisitor} that will use the given {@linkplain HierarchyManager} and
-     * {@linkplain ParsingContainer}.
+     * {@linkplain MappingContainer}.
      *
      * @param classVisitor     The parent {@linkplain ClassVisitor} to use.
      * @param hierarchyManager The {@linkplain HierarchyManager} to update with class information.
-     * @param container        The {@linkplain ParsingContainer} for mapping names and descriptors.
+     * @param container        The {@linkplain MappingContainer} for mapping names and descriptors.
      */
-    public HierarchyClassVisitor(ClassVisitor classVisitor, HierarchyManager hierarchyManager, ParsingContainer container) {
+    public HierarchyClassVisitor(ClassVisitor classVisitor, HierarchyManager hierarchyManager, MappingContainer container) {
         super(Opcodes.ASM9, classVisitor);
         this.container = container;
         this.hierarchyManager = hierarchyManager;

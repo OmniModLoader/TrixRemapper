@@ -2,7 +2,7 @@ import dev.tori.runtimeprofiler.Profiler;
 import dev.tori.runtimeprofiler.write.OutputWriter;
 import org.omnimc.asm.file.IOutputFile;
 import org.omnimc.asm.manager.thread.SafeClassManager;
-import org.omnimc.lumina.paser.ParsingContainer;
+import org.omnimc.lumina.paser.MappingContainer;
 import org.omnimc.lumina.reader.LuminaReader;
 import org.omnimc.trix.contexts.Context;
 import org.omnimc.trix.hierarchy.HierarchyChange;
@@ -30,7 +30,7 @@ public class Main { // todo fix this and make it actually usable and build able
 
         profiler.push("LuminaReader");
         LuminaReader luminaReader = new LuminaReader();
-        ParsingContainer parsingContainer = luminaReader.readPath("C:\\Users\\CryroByte\\Desktop\\Lumina-github\\run\\hierarchy");
+        MappingContainer parsingContainer = luminaReader.readPath("C:\\Users\\CryroByte\\Desktop\\Lumina-github\\run\\hierarchy");
 
         profiler.swap("HierarchyManager");
         HierarchyManager hierarchyManager = new HierarchyManager();

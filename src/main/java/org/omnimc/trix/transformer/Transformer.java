@@ -22,30 +22,16 @@
  * SOFTWARE.
  */
 
-repositories {
-    // Use Maven Central for resolving dependencies.
-    mavenCentral()
-    maven { url "https://jitpack.io" }
-}
+package org.omnimc.trix.transformer;
 
-dependencies {
-    // Use JUnit test framework.
-    testImplementation libs.junit
+import org.objectweb.asm.tree.ClassNode;
 
-    // This dependency is used by the application.
-    implementation libs.guava
+/**
+ * @author <b><a href=https://github.com/CadenCCC>Caden</a></b>
+ * @since 1.0.0
+ */
+public interface Transformer {
 
-    / ASM /
-    implementation 'org.ow2.asm:asm:9.7'
-    implementation 'org.ow2.asm:asm-tree:9.7'
-    implementation 'org.ow2.asm:asm-analysis:9.7'
-    implementation group: 'org.ow2.asm', name: 'asm-commons', version: '9.7'
-    implementation group: 'org.ow2.asm', name: 'asm-util', version: '9.7'
+    ClassNode transform(ClassNode classNode);
 
-    / Profiler /
-    implementation 'com.github.7orivorian:RuntimeProfiler:1.1.0'
-
-    / Project /
-    implementation 'org.omnimc:ASMHelper:2.2.9'
-    implementation 'org.omnimc:Lumina:1.3.5'
 }
