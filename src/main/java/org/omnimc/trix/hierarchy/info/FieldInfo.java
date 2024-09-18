@@ -40,6 +40,7 @@ import java.util.Objects;
  */
 @SuppressWarnings("ClassCanBeRecord")
 public class FieldInfo {
+
     private final String obfuscatedName;
     private final String fieldName;
     private final String descriptor;
@@ -89,10 +90,16 @@ public class FieldInfo {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         FieldInfo fieldInfo = (FieldInfo) o;
-        return Objects.equals(getObfuscatedName(), fieldInfo.getObfuscatedName()) && Objects.equals(getFieldName(), fieldInfo.getFieldName()) && Objects.equals(getDescriptor(), fieldInfo.getDescriptor());
+        return Objects.equals(getObfuscatedName(), fieldInfo.getObfuscatedName())
+               && Objects.equals(getFieldName(), fieldInfo.getFieldName())
+               && Objects.equals(getDescriptor(), fieldInfo.getDescriptor());
     }
 
     @Override

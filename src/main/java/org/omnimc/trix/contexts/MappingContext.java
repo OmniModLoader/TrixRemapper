@@ -34,6 +34,7 @@ import org.omnimc.trix.contexts.interfaces.IMethodContext;
  * @since 1.0.0
  */
 public class MappingContext implements IMappingContext {
+
     private final Remapper globalRemapper;
     private String currentClass;
 
@@ -113,5 +114,4 @@ public class MappingContext implements IMappingContext {
     public AnnotationVisitor visitAnnotation(String descriptor, boolean visible, ClassVisitor classVisitor) {
         return classVisitor.visitAnnotation(globalRemapper.mapDesc(descriptor), visible);
     }
-
 }

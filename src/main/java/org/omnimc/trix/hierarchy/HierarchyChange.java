@@ -36,6 +36,7 @@ import org.omnimc.trix.visitors.hierarchy.HierarchyClassVisitor;
  * @since 1.0.0
  */
 public class HierarchyChange implements IClassChange {
+
     private final HierarchyManager hierarchyManager;
     private final MappingContainer mappingContainer;
 

@@ -33,6 +33,7 @@ import org.omnimc.trix.contexts.interfaces.IMethodContext;
  * @since 1.0.0
  */
 public class MethodContext implements IMethodContext {
+
     private final MethodVisitor parentVisitor;
     private final Remapper globalRemapper;
 
@@ -63,10 +64,8 @@ public class MethodContext implements IMethodContext {
                     int tag = ((Handle) bootstrapMethodArguments[i]).getTag();
                     boolean anInterface = ((Handle) bootstrapMethodArguments[i]).isInterface();
 
-
                     bootstrapMethodArguments[i] = new Handle(tag, globalRemapper.mapType(owner), handleName, desc, anInterface);
                 }
-
             }
         }
 
@@ -161,7 +160,6 @@ public class MethodContext implements IMethodContext {
     @Override
     public void visitTryCatchBlock(Label start, Label end, Label handler, String type, MethodVisitor methodVisitor) {
         methodVisitor.visitTryCatchBlock(start, end, handler, type == null ? null : globalRemapper.mapType(type));
-
     }
 
     @Override
